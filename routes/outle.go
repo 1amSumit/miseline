@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -32,13 +33,9 @@ func createOutlet(c *gin.Context) {
 		return
 	}
 
-	outlet.Image = file.Filename
+	url := utils.UploadImage(file)
 
-	err = outlet.Save()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+	fmt.Println(url)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "success",
