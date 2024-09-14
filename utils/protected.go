@@ -4,13 +4,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func IsLoggedIn(context *gin.Context) bool {
+func IsLoggedIn(context *gin.Context) (float64, string, bool) {
 	token := context.Request.Header.Get("Authorization")
 
 	if token == "" {
 
-		return false
+		return -1, "", false
 	}
-	err := verifyJwtToken(token)
-	return err == nil
+	user_id, email, err := verifyJwtToken(token)
+	if err != nil {
+		return -1, "", false
+	}
+
+	return user_id, email, true
 }

@@ -20,10 +20,8 @@ type Outlet struct {
 }
 
 func (o *Outlet) Save() error {
-
 	now := time.Now()
 	o.CreateAt = &now
-	o.UserId = 2
 
 	query := `INSERT INTO outlets (name, address, image, city, state, zip, country, created_at, user_id) 
 			  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id`
