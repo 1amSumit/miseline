@@ -2,7 +2,6 @@ package utils
 
 import (
 	"context"
-	"fmt"
 	"mime/multipart"
 
 	"github.com/cloudinary/cloudinary-go/v2"
@@ -32,18 +31,17 @@ func credentials() (*cloudinary.Cloudinary, context.Context, error) {
 	return cld, ctx, nil
 }
 
-func UploadImage(file *multipart.FileHeader) string {
-
+func UploadImage(file *multipart.FileHeader) (string, error) {
 	cld, ctx, err := credentials()
 	if err != nil {
-		fmt.Println("Error initializing Cloudinary:", err)
-		return ""
+		return "", err
+
 	}
 
 	src, err := file.Open()
 	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return ""
+		return "", err
+
 	}
 	defer src.Close()
 	resp, err := cld.Upload.Upload(ctx, src, uploader.UploadParams{
@@ -52,17 +50,14 @@ func UploadImage(file *multipart.FileHeader) string {
 		Overwrite:      api.Bool(true),
 	})
 	if err != nil {
-		fmt.Println("Error uploading image:", err)
-		return ""
-	}
+		return "", err
 
-	fmt.Printf("Full Cloudinary response: %+v\n", resp)
+	}
 
 	if resp.SecureURL == "" {
-		fmt.Println("SecureURL is missing in the response")
-		return ""
+		return "", err
+
 	}
 
-	fmt.Println("Uploaded image Secure URL:", resp.SecureURL)
-	return resp.URL
+	return resp.SecureURL, nil
 }
