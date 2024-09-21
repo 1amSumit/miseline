@@ -62,7 +62,7 @@ func getOutletsByUserId(c *gin.Context) {
 
 	user_id, _, boolErr := utils.IsLoggedIn(c)
 
-	if boolErr != true {
+	if !boolErr {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"message": "You are not logged in",
 		})

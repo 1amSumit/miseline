@@ -49,22 +49,16 @@ func GetOutletsByUserId(user_id float64) ([]Outlet, error) {
 	var outlets []Outlet
 
 	for rows.Next() {
-
 		var o Outlet
-
 		err := rows.Scan(&o.Id, &o.Name, &o.Address, &o.Image, &o.City, &o.State, &o.Zip, &o.Country, &o.CreateAt, &o.UserId)
 
 		if err != nil {
 			return nil, err
 		}
-
 		outlets = append(outlets, o)
 	}
-
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}
-
 	return outlets, nil
-
 }

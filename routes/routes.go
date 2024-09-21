@@ -9,4 +9,6 @@ func RegisterRoutes(server *gin.Engine) {
 	server.POST("/api/outlet", createOutlet)
 
 	server.GET("/api/outlet/getOutletByUserId", getOutletsByUserId)
+
+	server.POST("/api/staff", createStaff) // give the quey as outletId={outletId}
 }
