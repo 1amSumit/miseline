@@ -56,3 +56,29 @@ func createOutlet(c *gin.Context) {
 		"data":    outlet,
 	})
 }
+
+func getOutletsByUserId(c *gin.Context) {
+	var outlets []model.Outlet
+
+	user_id, _, boolErr := utils.IsLoggedIn(c)
+
+	if boolErr != true {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"message": "You are not logged in",
+		})
+
+		return
+	}
+
+	outlets, err := model.GetOutletsByUserId(user_id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Unable to retrieve outlets",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, outlets)
+
+}
