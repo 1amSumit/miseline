@@ -11,7 +11,7 @@ func IsLoggedIn(context *gin.Context) (float64, string, bool) {
 
 		return -1, "", false
 	}
-	user_id, email, err := verifyJwtToken(token)
+	user_id, email, err := VerifyJwtToken(token)
 	if err != nil {
 		return -1, "", false
 	}

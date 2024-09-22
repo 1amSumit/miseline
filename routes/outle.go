@@ -10,19 +10,8 @@ import (
 
 func createOutlet(c *gin.Context) {
 	var outlet model.Outlet
-	var loggedInUser model.LoggedInUser
 
-	user_id, email, isLoggedIn := utils.IsLoggedIn(c)
-
-	if !isLoggedIn {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "You are not logged in",
-		})
-
-		return
-	}
-
-	loggedInUser.SaveUser(int64(user_id), email)
+	user_id := c.GetInt64("user_id")
 
 	err := c.ShouldBind(&outlet)
 

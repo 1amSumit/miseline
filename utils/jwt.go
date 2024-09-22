@@ -21,7 +21,7 @@ func GenerateJWTToken(email string, userId int64) (string, error) {
 	return token.SignedString([]byte(secretKey))
 }
 
-func verifyJwtToken(token string) (float64, string, error) {
+func VerifyJwtToken(token string) (float64, string, error) {
 	//toekn Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1bWl0MTIzIiwiZXhwIjoxNzI2MzA2MzY3LCJ1c2VySWQiOjR9.siJmcJuzJMro3YZfXhwhT7YBQ0V_8mL9PXhX98OMVRg
 
 	//removing the Bearer from token string

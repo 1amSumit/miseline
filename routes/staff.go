@@ -12,15 +12,6 @@ import (
 
 func createStaff(c *gin.Context) {
 	var staff model.Staff
-	_, _, boolErr := utils.IsLoggedIn(c)
-
-	if !boolErr {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "you must be logged in",
-		})
-
-		return
-	}
 
 	err := c.ShouldBind(&staff)
 

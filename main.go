@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	db.InitDB()
 
 	err := godotenv.Load()
