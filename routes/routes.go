@@ -11,8 +11,10 @@ func RegisterRoutes(server *gin.Engine) {
 
 	authenticated := server.Group("/")
 	authenticated.Use(middleware.IsLoggedIn)
-	authenticated.POST("/api/outlet", createOutlet)
+	authenticated.POST("/api/outlet/create", createOutlet)
 	authenticated.GET("/api/outlet/getOutletByUserId", getOutletsByUserId)
-	authenticated.POST("/api/staff", createStaff)      // give the quey as outletId={outletId}
-	authenticated.POST("/api/inventory", addInventory) // give the quey as outletId={outletId}
+	authenticated.POST("/api/staff/create", createStaff)      // give the quey as outletId={outletId}
+	authenticated.POST("/api/inventory/create", addInventory) // give the quey as outletId={outletId}
+	authenticated.POST("/api/product/create", addProduct)     // give the quey as outletId={inventoryId}
+
 }

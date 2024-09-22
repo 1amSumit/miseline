@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -38,7 +37,6 @@ func createStaff(c *gin.Context) {
 	}
 
 	outletId := c.Query("outletId")
-	fmt.Println(outletId)
 	staff.OutletId, err = strconv.ParseInt(outletId, 10, 64)
 
 	if err != nil {

@@ -12,7 +12,7 @@ func IsLoggedIn(c *gin.Context) {
 
 	if token == "" {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"message": "you are not logged in. Please log in to continue.",
+			"message": "Not authorized.",
 		})
 	}
 	user_id, _, err := utils.VerifyJwtToken(token)
